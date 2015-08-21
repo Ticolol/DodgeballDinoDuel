@@ -54,6 +54,8 @@
      <Compile Include="Assets\Scripts\PlayerBody.cs" />
      <Compile Include="Assets\Scripts\StatisticsController.cs" />
      <Compile Include="Assets\Scripts\TailWhip.cs" />
+     <Compile Include="Assets\SkinChanger.cs" />
+     <None Include="Assets\ToDoList.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

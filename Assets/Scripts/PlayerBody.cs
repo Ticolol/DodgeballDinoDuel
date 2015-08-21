@@ -61,9 +61,8 @@ public class PlayerBody : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c){
 		if(c.gameObject.tag == "Meteor" && father.allowMove){
-			//MORREU
+			//PERDEU VIDA
 			lifes -= 1;
-
 			lifeCounter.LoseLife(); 
 
 			if(lifes==0){
@@ -82,6 +81,8 @@ public class PlayerBody : MonoBehaviour {
 
 
 			}
+
+			c.GetComponent<MeteorScript>().Explode();
 		}
 	}
 }

@@ -36,9 +36,13 @@
 
 @@@ ///////////////////////////////////////////////////////////////////////////
 
--=> Botar no Git /////////////////////////////////////////////////////////
-= Codar bolas de fogo
-= Arrumar animações
+-=> Botar no Git ////////////////////////////////////////////////////////////
+= Fazer cauda da bolas de fogo girar com o movimento ////////////////////////
+= Fazer cauda menor da bola de fogo quando quicar no chao dps de rabada //////
+= Botar fumaça no fundo do cenario ///////////////////////////////////////////
+= Fazer meteoros explodirem /////////////////////////////////////////////////
+= Criar behavior script para trocar animações 
+= Arrumar animações de rabada
 = Criar tela inicial
 = Criar creditos
 = Colocar logo na tela inicial e difalossauro na transição

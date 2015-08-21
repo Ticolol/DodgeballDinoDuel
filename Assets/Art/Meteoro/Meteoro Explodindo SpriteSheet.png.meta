@@ -1,14 +1,13 @@
 fileFormatVersion: 2
-guid: ee292ef0906f29d4a95a4d6627ec3658
-timeCreated: 1440042747
+guid: ded0f6c46a4bf4a449987ccc6ce465c3
+timeCreated: 1440043067
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: "Fuma\xE7a SpriteSheet_0"
-    21300002: "Fuma\xE7a SpriteSheet_1"
-    21300004: "Fuma\xE7a SpriteSheet_2"
-    21300006: "Fuma\xE7a SpriteSheet_3"
-    21300008: "Fuma\xE7a SpriteSheet_4"
+    21300000: Meteoro Explodindo SpriteSheet_0
+    21300002: Meteoro Explodindo SpriteSheet_1
+    21300004: Meteoro Explodindo SpriteSheet_2
+    21300006: Meteoro Explodindo SpriteSheet_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,53 +53,43 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: "Fuma\xE7a SpriteSheet_0"
+    - name: Meteoro Explodindo SpriteSheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 255
-        width: 397
-        height: 255
+        y: 1000
+        width: 1000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: "Fuma\xE7a SpriteSheet_1"
+    - name: Meteoro Explodindo SpriteSheet_1
       rect:
         serializedVersion: 2
-        x: 397
-        y: 255
-        width: 397
-        height: 255
+        x: 1000
+        y: 1000
+        width: 1000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: "Fuma\xE7a SpriteSheet_2"
-      rect:
-        serializedVersion: 2
-        x: 794
-        y: 255
-        width: 397
-        height: 255
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: "Fuma\xE7a SpriteSheet_3"
+    - name: Meteoro Explodindo SpriteSheet_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 397
-        height: 255
+        width: 1000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: "Fuma\xE7a SpriteSheet_4"
+    - name: Meteoro Explodindo SpriteSheet_3
       rect:
         serializedVersion: 2
-        x: 397
+        x: 1000
         y: 0
-        width: 397
-        height: 255
+        width: 1000
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -22,6 +22,7 @@ public class TailWhip : MonoBehaviour {
 			//Rebater!!!!
 			c.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(c.transform.position - father.transform.position)
 			                                                * FORCE , ForceMode.Impulse);
+			c.gameObject.GetComponent<MeteorScript>().ShowTail();
 			c.GetComponent<MeteorScript>().Restore();
 			father.knockedMeteors++;
 		}

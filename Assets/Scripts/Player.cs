@@ -69,6 +69,12 @@ public class Player : MonoBehaviour {
 			dino.runtimeAnimatorController = animtP1;
 		}else{
 			dino.runtimeAnimatorController = animtP2;
+			AnimationClip[] an = animtP1.animationClips;
+			foreach(AnimationClip a in an){
+				Debug.Log(a.name);
+				Debug.Log(a.averageDuration);
+			}
+
 		}
         
         //Setar keycode pros comandos do jogador
