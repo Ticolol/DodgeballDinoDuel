@@ -41,9 +41,10 @@
 = Fazer cauda menor da bola de fogo quando quicar no chao dps de rabada //////
 = Botar fumaça no fundo do cenario ///////////////////////////////////////////
 = Fazer meteoros explodirem /////////////////////////////////////////////////
-= Criar behavior script para trocar animações 
+= Utilizar o Animator Override Controller pra não ser burro //////////////////
 = Arrumar animações de rabada
 = Criar tela inicial
 = Criar creditos
 = Colocar logo na tela inicial e difalossauro na transição
 = Aumentar vidas pra 3
+= Codar os audios e musicas
