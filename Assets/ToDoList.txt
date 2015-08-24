@@ -42,9 +42,10 @@
 = Botar fumaça no fundo do cenario ///////////////////////////////////////////
 = Fazer meteoros explodirem /////////////////////////////////////////////////
 = Utilizar o Animator Override Controller pra não ser burro //////////////////
-= Criar tela inicial
-= Criar creditos
-= Recriar transição com difalossauro e contagem regressiva
+= Criar tela inicial ////////////////////////////////////////////////////////
+= Criar creditos ///////////////////////////////////////////////////////////
+= Colocar botão de Mute
+= Recriar transição com difalossauro e contagem regressivaa
 = Aumentar vidas pra 3
 = Arrumar animações de rabada
 = Codar os audios e musicas
