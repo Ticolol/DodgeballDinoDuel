@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Button.cs" />
+     <Compile Include="Assets\CreditsController.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\LifeCounter.cs" />
      <Compile Include="Assets\Scripts\MeteorScript.cs" />
@@ -54,7 +56,7 @@
      <Compile Include="Assets\Scripts\PlayerBody.cs" />
      <Compile Include="Assets\Scripts\StatisticsController.cs" />
      <Compile Include="Assets\Scripts\TailWhip.cs" />
-     <Compile Include="Assets\SkinChanger.cs" />
+     <Compile Include="Assets\TitleController.cs" />
      <None Include="Assets\ToDoList.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -61,7 +61,7 @@ public class Player : MonoBehaviour {
 		body = transform.Find("Body").gameObject;
 		dino = transform.Find("RotDino/Dino").gameObject.GetComponent<Animator>();
 
-		tailWhipPos = new Vector3(tailWhipHitBox.transform.localPosition.x, tailWhipHitBox.transform.localPosition.y, 0);
+		tailWhipPos = new Vector3(tailWhipHitBox.transform.localPosition.x, tailWhipHitBox.transform.localPosition.y, tailWhipHitBox.transform.localPosition.z);
 		originalScale = body.transform.localScale;
 		scenario = LayerMask.GetMask("Ground");
 
@@ -69,12 +69,6 @@ public class Player : MonoBehaviour {
 			dino.runtimeAnimatorController = animtP1;
 		}else{
 			dino.runtimeAnimatorController = animtP2;
-			AnimationClip[] an = animtP1.animationClips;
-			foreach(AnimationClip a in an){
-				Debug.Log(a.name);
-				Debug.Log(a.averageDuration);
-			}
-
 		}
         
         //Setar keycode pros comandos do jogador

@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SkinChanger.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TitleController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="71" Column="8" />
-      <File FileName="Assets\Scripts\MeteorSpawnerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerBody.cs" Line="80" Column="36" />
-      <File FileName="Assets\SkinChanger.cs" Line="12" Column="5" />
+      <File FileName="Assets\Scripts\TailWhip.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="134" Column="19" />
+      <File FileName="Assets\Button.cs" Line="56" Column="17" />
+      <File FileName="Assets\TitleController.cs" Line="17" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
