@@ -44,6 +44,7 @@
 = Utilizar o Animator Override Controller pra não ser burro //////////////////
 = Criar tela inicial ////////////////////////////////////////////////////////
 = Criar creditos ///////////////////////////////////////////////////////////
+= Concertar a tela de estatisticas //////////////////////////////////////////
 = Colocar botão de Mute
 = Recriar transição com difalossauro e contagem regressivaa
 = Aumentar vidas pra 3

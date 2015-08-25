@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
 	public float ATTACKDURMAX = .35f; // em segundos
 	public float ATTACKCOOLDOWN = .2f; // em segundos
 
-	public bool Vencedor = true;
+	public bool Vencedor;
 	public int knockedMeteors = 0;
 
 	public LayerMask scenario;
@@ -90,6 +90,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Initiate(){
+		Vencedor = true;
 		allowMove = true;
 		body.GetComponent<PlayerBody>().Initiate();
 		tailWhipHitBox.SetActive(false);

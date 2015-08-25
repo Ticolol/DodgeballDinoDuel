@@ -5,6 +5,7 @@ using System.Collections;
 public class StatisticsController : MonoBehaviour {
 
 	public GameObject resultPanel;
+	public Sprite firstSprite;
 	public Sprite secondSprite;
 
 	public Text DurationTextDesc;
@@ -27,6 +28,7 @@ public class StatisticsController : MonoBehaviour {
 
 	private bool AlreadyChanged;
 	private int phase;
+	
 
 	
 
@@ -44,15 +46,22 @@ public class StatisticsController : MonoBehaviour {
 	}
 
 	public void DisplayStatistics (){
+		Debug.Log(DurationTextDesc.transform.position);
 		if (Player2.Vencedor == true){
 			transform.Find("ResultPanel").GetComponent<Image>().sprite = secondSprite;
-			DurationTextDesc.transform.Translate(new Vector2(-250,0));
-			MaxMeteorTextDesc.transform.Translate(new Vector2(-250,0));
-			KnockedMeteor1TextDesc.transform.Translate(new Vector2(-250,0));
-			KnockedMeteor2TextDesc.transform.Translate(new Vector2(-250,0));
-
+			DurationTextDesc.rectTransform.localPosition = new Vector3(-225,68,0);
+			MaxMeteorTextDesc.rectTransform.localPosition = new Vector3(-180,12,0);
+			KnockedMeteor1TextDesc.rectTransform.localPosition = new Vector3(-180,-38,0);
+			KnockedMeteor2TextDesc.rectTransform.localPosition = new Vector3(-180,-90,0);
+			
+		}else {
+			transform.Find("ResultPanel").GetComponent<Image>().sprite = firstSprite;
+			DurationTextDesc.rectTransform.localPosition = new Vector3(50,68,0);
+			MaxMeteorTextDesc.rectTransform.localPosition = new Vector3(80,12,0);
+			KnockedMeteor1TextDesc.rectTransform.localPosition = new Vector3(80,-38,0);
+			KnockedMeteor2TextDesc.rectTransform.localPosition = new Vector3(80,-90,0);
 		}
-		DurationText.GetComponent<Text>().text = (Time.time - MeteorSpawner.BeginTime).ToString();
+		DurationText.GetComponent<Text>().text = System.Math.Round((Time.time - MeteorSpawner.BeginTime),2).ToString();
 
 		KnockedMeteor1Text.GetComponent<Text>().text = Player1.knockedMeteors.ToString();
 		KnockedMeteor2Text.GetComponent<Text>().text = Player2.knockedMeteors.ToString();
