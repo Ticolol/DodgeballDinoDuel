@@ -46,7 +46,6 @@ public class StatisticsController : MonoBehaviour {
 	}
 
 	public void DisplayStatistics (){
-		Debug.Log(DurationTextDesc.transform.position);
 		if (Player2.Vencedor == true){
 			transform.Find("ResultPanel").GetComponent<Image>().sprite = secondSprite;
 			DurationTextDesc.rectTransform.localPosition = new Vector3(-225,68,0);

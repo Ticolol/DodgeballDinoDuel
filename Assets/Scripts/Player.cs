@@ -91,6 +91,7 @@ public class Player : MonoBehaviour {
 
 	public void Initiate(){
 		Vencedor = true;
+		knockedMeteors = 0;
 		allowMove = true;
 		body.GetComponent<PlayerBody>().Initiate();
 		tailWhipHitBox.SetActive(false);
