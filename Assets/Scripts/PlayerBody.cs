@@ -5,7 +5,7 @@ public class PlayerBody : MonoBehaviour {
 
 	public float SLOWMODUR = 1f;
 	public float DAMAGEDUR = .3f;
-	public int LIFESMAX = 2;
+	public int LIFESMAX = 3;
 
 	Player father;
 	GameController gameController;
