@@ -5,6 +5,8 @@ public class MeteorScript : MonoBehaviour {
 
 	public int CollisionsBeforeDiscarding;
 
+	public GameObject meteorSprite;
+
 	public GameObject explodingMeteor;
 
 	MeteorSpawnerScript MeteorSpawner;
@@ -71,10 +73,10 @@ public class MeteorScript : MonoBehaviour {
 
 	IEnumerator Fade() {
 		//Aplica fade e mata meteoro
-		for (float f = 1f; f >= 0; f -= 0.04f) {
-			Color c = GetComponent<Renderer>().material.color;
+		for (float f = 1f; f >= 0; f -= 0.04f) { 
+			Color c = meteorSprite.GetComponent<SpriteRenderer>().material.color;
 			c.a = f;
-			GetComponent<Renderer>().material.color = c;
+			meteorSprite.GetComponent<SpriteRenderer>().material.color = c;
 			yield return null;
 		}
 		MeteorSpawner.MeteorDestroyed();
