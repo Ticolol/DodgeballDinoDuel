@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\PlayerBody.cs" />
      <Compile Include="Assets\Scripts\StatisticsController.cs" />
      <Compile Include="Assets\Scripts\TailWhip.cs" />
+     <Compile Include="Assets\SoundController.cs" />
      <Compile Include="Assets\TitleController.cs" />
      <None Include="Assets\ToDoList.txt" />
  <Reference Include="UnityEngine.UI">

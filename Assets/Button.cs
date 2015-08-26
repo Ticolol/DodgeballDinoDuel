@@ -49,40 +49,45 @@ public class Button : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(temporaryBlockOnClick){
+		if(temporaryBlockOnClick && pressed){
 			if(time > 5){
 				enabled = true;
 				GetComponent<SpriteRenderer>().sprite = normalSprite;
-                
+				time = 0;
+				pressed = false;
             }else{
 				time += Time.deltaTime;
 			}
 		}
-		//Debug.Log(pressed);
+		//Debug.Log(enabled);
 	}
     
 	void OnMouseDown(){
 		if(enabled){
 			//Apertou
 			GetComponent<SpriteRenderer>().sprite = pressedSprite;
+		}	
+	}
+
+	void OnMouseUpAsButton(){
+		Debug.Log("UE " + gameObject.name + " => " + enabled);
+		if(enabled){
 			pressed = true;
-            if(scriptName.Length != 0){
+			if(scriptName.Length != 0){
 				MonoBehaviour temp = (MonoBehaviour) objectOwner.GetComponent(scriptName);
 				if(functionName != null){
 					temp.Invoke(functionName, 0);
 				}
-
+				
 				GetComponent<AudioSource>().PlayOneShot(clickFX);
 				
 				if(temporaryBlockOnClick){
 					enabled = false;
 					time = 0;
 				}
-				
-				
 			}
 			
-		}	
+		}
 	}
 
 	void OnMouseEnter(){
@@ -92,12 +97,13 @@ public class Button : MonoBehaviour {
 	}
 
 	void OnMouseExit(){
-		if(enabled)
+		if(enabled){
 			if(!pressed){
 				GetComponent<SpriteRenderer>().sprite = normalSprite;
 	        }else{
 				GetComponent<SpriteRenderer>().sprite = overSprite;
 	        }
+		}
     }
     
     void OnMouseUp(){
