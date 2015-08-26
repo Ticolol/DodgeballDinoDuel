@@ -44,9 +44,9 @@
 = Utilizar o Animator Override Controller pra não ser burro //////////////////
 = Criar tela inicial ////////////////////////////////////////////////////////
 = Criar creditos ///////////////////////////////////////////////////////////
-= Concertar a tela de estatisticas //////////////////////////////////////////
-= Colocar botão de Mute
-= Recriar transição com difalossauro e contagem regressivaa
+= Colocar botão de Mute /////////////////////////////////////////////////////
+= Consertar a tela de estatisticas //////////////////////////////////////////
+= Recriar transição com difalossauro e contagem regressiva
 = Aumentar vidas pra 3
-= Arrumar animações de rabada
+= Arrumar animações de rabada //////////////////////////////////////////////
 = Codar os audios e musicas
