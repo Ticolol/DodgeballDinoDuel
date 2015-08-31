@@ -32,9 +32,10 @@ public class MeteorScript : MonoBehaviour {
 		//Carrega MeteorSpawner e inicializa variaveis
 		MeteorSpawner = GameObject.Find("MeteorSpawner").GetComponent<MeteorSpawnerScript>();
 		meteorSprite = transform.Find("sprite").gameObject;
-		lastPos = transform.position;
+        cauda = transform.Find("cauda").gameObject;
+        lastPos = transform.position;
 		onFire = true;
-		cauda = transform.Find("cauda").gameObject;
+		
 
 	}
 	
@@ -114,7 +115,7 @@ public class MeteorScript : MonoBehaviour {
 	public void RotateTail(){
 		//Rotaciona cauda
 		Vector3 velNorm = GetComponent<Rigidbody>().velocity.normalized;
-		transform.rotation = Quaternion.Euler(0,0,Mathf.Rad2Deg * (Mathf.Atan2(velNorm.y, velNorm.x) + Mathf.PI/2) - transform.rotation.z);
+		cauda.transform.rotation = Quaternion.Euler(0,0,Mathf.Rad2Deg * (Mathf.Atan2(velNorm.y, velNorm.x) + Mathf.PI/2) - transform.rotation.z);
 	}
 
 	public void Explode(){

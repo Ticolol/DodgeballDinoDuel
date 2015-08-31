@@ -49,7 +49,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void StartRound(){
-		SoundController.instance.PlayMusicWithIntro(musicIntro, musicLoop, GetComponent<AudioSource>());
 		player1.Initiate();
 		player2.Initiate();
 		BlockEveryone();
@@ -69,6 +68,10 @@ public class GameController : MonoBehaviour {
 		float PositionModifierV;
 		GameObject[] arr = {f3, f2, f1};
 		IntroductionGroup.SetActive(true);
+
+        yield return null;
+
+        SoundController.instance.PlayMusicWithIntro(musicIntro, musicLoop, GetComponent<AudioSource>());
 
 		foreach(GameObject f in arr){
 			PositionModifierV = -9;	
