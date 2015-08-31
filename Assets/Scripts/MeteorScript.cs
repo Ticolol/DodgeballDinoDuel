@@ -5,7 +5,7 @@ public class MeteorScript : MonoBehaviour {
 
 	public int CollisionsBeforeDiscarding;
 
-	public GameObject meteorSprite;
+	GameObject meteorSprite;
 
 	public GameObject explodingMeteor;
 
@@ -27,6 +27,7 @@ public class MeteorScript : MonoBehaviour {
 	void Start () {
 		//Carrega MeteorSpawner e inicializa variaveis
 		MeteorSpawner = GameObject.Find("MeteorSpawner").GetComponent<MeteorSpawnerScript>();
+		meteorSprite = transform.Find("sprite").gameObject;
 		lastPos = transform.position;
 		onFire = true;
 		cauda = transform.Find("cauda").gameObject;

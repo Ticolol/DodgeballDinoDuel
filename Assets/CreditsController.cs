@@ -15,5 +15,7 @@ public class CreditsController : MonoBehaviour {
 
 	public void Return(){
 		Application.LoadLevel("Title");
+		
+
 	}
 }

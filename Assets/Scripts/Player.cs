@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 
 public class Player : MonoBehaviour {
@@ -10,18 +10,18 @@ public class Player : MonoBehaviour {
 
 	public PlayerN player = PlayerN.Player1;
 
-	public float GRAVITYACCEL = .2f;
-	public float GRAVITYMAX = 1;
+	public float GRAVITYACCEL = .7f;
+	public float GRAVITYMAX = .5f;
 	public float WALKSPEEDMAX = .2f;
-	public float WALKACCEL = .7f;
+	public float WALKACCEL = 1f;
 	public float DRAG = .7f; //fator multiplicativo
-	public float JUMPFORCE = 1f;
-	public float JUMPACCEL = .2f;
+	public float JUMPFORCE = .15f;
+	public float JUMPACCEL = .7f;
 	public float JUMPDURMAX = .3f; //em segundos
 	public float JUMPSMAX = 2; //vezes
 	public float CROUCHHEIGHT = .35f; // porcentagem
-	public float CROUCHWIDTH = 1.5f; // porcentagem
-	public float ATTACKDURMAX = .35f; // em segundos
+	public float CROUCHWIDTH = 2f; // porcentagem
+	public float ATTACKDURMAX = .3f; // em segundos
 	public float ATTACKCOOLDOWN = .2f; // em segundos
 
 	public bool Vencedor;
@@ -31,6 +31,10 @@ public class Player : MonoBehaviour {
 
 	public RuntimeAnimatorController animtP1;
 	public RuntimeAnimatorController animtP2;
+
+	public AudioClip jumpOne;
+	public AudioClip jumpTwo;
+	public AudioClip andando;
 
 	Vector3 originalScale;
 	GameObject tailWhipHitBox;
@@ -86,12 +90,11 @@ public class Player : MonoBehaviour {
 			getAttack = KeyCode.Space;
 		}
 
-		Initiate();
+		//Initiate();
 	}
 
 	public void Initiate(){
 		Vencedor = true;
-		knockedMeteors = 0;
 		allowMove = true;
 		body.GetComponent<PlayerBody>().Initiate();
 		tailWhipHitBox.SetActive(false);
@@ -123,9 +126,9 @@ public class Player : MonoBehaviour {
         attackCoolDown = false;
 
 		if(player == PlayerN.Player2){
-			transform.position = new Vector3(5,0,0);
+			transform.position = new Vector3(5,-3.1f,0);
 		}else{
-			transform.position = new Vector3(-5,0,0);
+			transform.position = new Vector3(-5,-3.1f,0);
 		}
 	}
 	
@@ -143,8 +146,8 @@ public class Player : MonoBehaviour {
 					dino.transform.localPosition = dino.transform.localPosition + Vector3.up * originalScale.y * (1 - CROUCHHEIGHT)/2;
 				}
 				crouched = true;
-			}else{
-				//Fast fall
+			}else {
+				//Fastfall
 				velocity.y = -GRAVITYMAX;
 			}
 		}else if (crouched && !attacking){//Voltar ao normal
@@ -157,6 +160,17 @@ public class Player : MonoBehaviour {
 
 		//Andar lateralmente
 		if(Input.GetKey(getRight) && !crouched && allowMove){
+			//Tocar som
+			if(onGround){
+				if(!GetComponent<AudioSource>().isPlaying){
+					SoundController.instance.PlayLoop(andando, GetComponent<AudioSource>());
+				}
+			}else{
+				if(GetComponent<AudioSource>().isPlaying){
+					SoundController.instance.StopLoop(GetComponent<AudioSource>());
+				}
+			}
+
 			if(!attacking)//se atacar, nao virar personagem
 				side = Side.Right;
 			dino.SetBool("Andando", true);
@@ -164,6 +178,17 @@ public class Player : MonoBehaviour {
 			if(velocity.x < 0)//Se velocidade eh oposta a aceleracao, aplicar drag para muda-la mais rapido
 				velocity.x *= DRAG;
 		}else if(Input.GetKey(getLeft) && !crouched && allowMove){
+			//Tocar som
+			if(onGround){
+				if(!GetComponent<AudioSource>().isPlaying){
+					SoundController.instance.PlayLoop(andando, GetComponent<AudioSource>());
+				}
+			}else{
+				if(GetComponent<AudioSource>().isPlaying){
+					SoundController.instance.StopLoop(GetComponent<AudioSource>());
+				}
+			}
+
 			if(!attacking)//se atacar, nao virar personagem
 				side = Side.Left;
 			dino.SetBool("Andando", true);
@@ -171,6 +196,7 @@ public class Player : MonoBehaviour {
 			if(velocity.x > 0)//Se velocidade eh oposta a aceleracao, aplicar drag para muda-la mais rapido
 				velocity.x *= DRAG;
 		}else {
+			SoundController.instance.StopLoop(GetComponent<AudioSource>());
 			dino.SetBool("Andando", false);
 			if(Mathf.Abs(velocity.x) < MINIMUMSPEEDX){//Se velocidade menor que o minimo, zera-la
 				velocity.x = 0;
@@ -200,13 +226,13 @@ public class Player : MonoBehaviour {
 			canJump = true;
 			jumpTimes = 0;			
 		}else{//nao relou no chao
-			dino.SetBool("Agachado", false);
 			onGround = false;
 		}
 		//PULAR!!!
 		if(Input.GetKey(getUp) && !crouched && allowMove){
 			dino.SetBool("Agachado", false);
 			if(onGround){//Se no chao, aplicar 1o pulo
+				SoundController.instance.PlaySingle(jumpOne);
 				dino.SetBool("Pulando", true);
 				velocity.y += JUMPFORCE;
 				onGround = false;
@@ -215,6 +241,7 @@ public class Player : MonoBehaviour {
 				jumpDur = 0;
 				jumpCtrlAllowed = true;
 			}else if( canJump && jumpTimes < JUMPSMAX){//Se no ar, puder pular e tiver pulos sobrando, pular
+				SoundController.instance.PlaySingle(jumpTwo);
 				dino.SetBool("Pulando", true);
 				dino.SetBool("Agachado", true);
 				velocity.y = JUMPFORCE;
@@ -269,12 +296,14 @@ public class Player : MonoBehaviour {
 				tailWhipHitBox.transform.localPosition = new Vector3(-tailWhipPos.x, tailWhipPos.y, tailWhipPos.z);
 			}
 			tailWhipHitBox.SetActive(true);
+			tailWhipHitBox.gameObject.GetComponent<TailWhip>().StartAttack();
 		}
 		if(attacking){//Se atacando, atualizar tempo de ataque
 			attackDur += Time.deltaTime;
 			if(attackDur >= ATTACKDURMAX){//Se tempo de ataque estourar, finaliza-lo
 				dino.SetBool("Atacando", false);
 				tailWhipHitBox.SetActive(false);
+				tailWhipHitBox.gameObject.GetComponent<TailWhip>().FinishAttack();
 				attacking = false;
 				attackCoolDown = true;
 			}

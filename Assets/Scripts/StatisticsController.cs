@@ -17,9 +17,12 @@ public class StatisticsController : MonoBehaviour {
 	public Text MaxMeteorText;
 	public Text KnockedMeteor1Text;
 	public Text KnockedMeteor2Text;
+	public GameObject btnRestart;
+	public GameObject btnExit;
 
-	public Player Player1;
-	public Player Player2;
+
+	Player Player1;
+	Player Player2;
 	public MeteorSpawnerScript MeteorSpawner;
 
 	private float Duracao;
@@ -29,15 +32,17 @@ public class StatisticsController : MonoBehaviour {
 	private bool AlreadyChanged;
 	private int phase;
 	
-
-	
-
+	bool restart;
 	int DestinationY;
 
 	// Use this for initialization
 	void Start () {
 		phase = 0;
 		resultPanel.transform.position = new Vector2(Screen.width/2f, -Screen.height * 0.5f);
+		restart = false;
+
+		Player1 = GameObject.Find("Player 1").GetComponent<Player>();
+		Player2 = GameObject.Find("Player 2").GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
@@ -46,8 +51,11 @@ public class StatisticsController : MonoBehaviour {
 	}
 
 	public void DisplayStatistics (){
+		//Debug.Log(DurationTextDesc.transform.position);
 		if (Player2.Vencedor == true){
 			transform.Find("ResultPanel").GetComponent<Image>().sprite = secondSprite;
+			btnRestart.GetComponent<RectTransform>().anchoredPosition = new Vector3(-24,-143,0);
+			btnExit.GetComponent<RectTransform>().anchoredPosition = new Vector3(354,167,0);
 			DurationTextDesc.rectTransform.localPosition = new Vector3(-225,68,0);
 			MaxMeteorTextDesc.rectTransform.localPosition = new Vector3(-180,12,0);
 			KnockedMeteor1TextDesc.rectTransform.localPosition = new Vector3(-180,-38,0);
@@ -55,6 +63,8 @@ public class StatisticsController : MonoBehaviour {
 			
 		}else {
 			transform.Find("ResultPanel").GetComponent<Image>().sprite = firstSprite;
+			btnRestart.GetComponent<RectTransform>().anchoredPosition = new Vector3(37,-153,0);
+			btnExit.GetComponent<RectTransform>().anchoredPosition = new Vector3(-356,167,0);
 			DurationTextDesc.rectTransform.localPosition = new Vector3(50,68,0);
 			MaxMeteorTextDesc.rectTransform.localPosition = new Vector3(80,12,0);
 			KnockedMeteor1TextDesc.rectTransform.localPosition = new Vector3(80,-38,0);
@@ -67,6 +77,8 @@ public class StatisticsController : MonoBehaviour {
 
 		MaxMeteorText.GetComponent<Text>().text = MeteorSpawner.ExpectedMeteors.ToString();
 
+		btnExit.GetComponent<UnityEngine.UI.Button>().interactable = true;
+
 		StartCoroutine("StatisticRoutine");
 
 
@@ -76,6 +88,7 @@ public class StatisticsController : MonoBehaviour {
 	IEnumerator StatisticRoutine () {
 		float EndSlide;
 
+		restart = false;
 		//Primeira vez que a tela de estatisticas sobe:
 		EndSlide = Screen.height * 0.5f;
 		gameObject.SetActive(true);
@@ -84,7 +97,7 @@ public class StatisticsController : MonoBehaviour {
 			yield return null;
 		}
 
-		while (!Input.GetKeyDown(KeyCode.Return)){
+		while (!Input.GetKeyDown(KeyCode.Return) && !restart){
 			yield return null;
 		}
 
@@ -95,11 +108,13 @@ public class StatisticsController : MonoBehaviour {
 			yield return null;
 		}
 
-		GameObject.Find("!GameController").GetComponent<GameController>().InitiateRound();
+		GameObject.Find("!GameController").GetComponent<GameController>().StartRound();
 
-		
+		btnExit.GetComponent<UnityEngine.UI.Button>().interactable = false;
 	}
 
-
+	public void Restart(){
+		restart = true;
+	}
 
 }

@@ -37,6 +37,10 @@ public class TitleController : MonoBehaviour {
 		}
 	}
 
+	public void Exit(){
+		Application.Quit();
+	}
+
 	public void HideRecado(){
 		//Esconder mensagem do coleguinha
 		recado.transform.position = new Vector3(0,10,-1);

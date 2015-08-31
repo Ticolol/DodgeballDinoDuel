@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -10,25 +10,32 @@ public class GameController : MonoBehaviour {
 	public LifeCounter lifeCounter2;
 
 	public GameObject IntroductionGroup;
-	public GameObject FaixaH1;
-	public GameObject FaixaH2;
-	public GameObject FaixaV;
+	//public GameObject FaixaH1;
+	//public GameObject FaixaH2;
+	public GameObject dilofo;
+	public GameObject f3;
+	public GameObject f2;
+	public GameObject f1;
 
 	public StatisticsController StatisticsCanvas;
 
+	public AudioClip musicIntro;
+	public AudioClip musicLoop;
+	bool start;
 
 	// Use this for initialization
 	void Start () {
-		BlockEveryone();
-		StartCoroutine("AnimateEntrance");
-
-
+		start = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+		if(start){
+			start = false;
+			StartRound();
+		}
+        
+    }
 
 	public void BlockEveryone(){
 		player1.allowMove = false;
@@ -37,8 +44,16 @@ public class GameController : MonoBehaviour {
 	}
 	
 	public void FinishRound(Player.PlayerN loser){
-		//		InitiateRound(); //Tirar depois. Ative as animacoes de placar ==========================================
+		//InitiateRound(); //Tirar depois. Ative as animacoes de placar ==========================================
 		StatisticsCanvas.DisplayStatistics(); 
+	}
+
+	public void StartRound(){
+		SoundController.instance.PlayMusicWithIntro(musicIntro, musicLoop, GetComponent<AudioSource>());
+		player1.Initiate();
+		player2.Initiate();
+		BlockEveryone();
+		StartCoroutine("AnimateEntrance");
 	}
 
 	public void InitiateRound(){
@@ -50,36 +65,74 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator AnimateEntrance() {
-		float PositionModifierH = -16;
-		float PositionModifierV = -9;//372/151
-		
-		while (PositionModifierH < -6.5){
-			PositionModifierH += Time.deltaTime * 15;
-			PositionModifierV += Time.deltaTime * 18f;
-			FaixaH1.transform.position = new Vector2(PositionModifierH , PositionModifierH * 0.4f);
-			FaixaH2.transform.position = new Vector2(-PositionModifierH , PositionModifierH * 0.4f);
-			FaixaV.transform.position = new Vector2(0, PositionModifierV);
+		float PositionModifierV;
+		GameObject[] arr = {f3, f2, f1};
+		IntroductionGroup.SetActive(true);
+
+		foreach(GameObject f in arr){
+			PositionModifierV = -9;	
+
+			while (PositionModifierV < -0.2f){
+				PositionModifierV += Time.deltaTime * 32f;
+				if(PositionModifierV > -.2f)
+					PositionModifierV = -.2f;
+				f.transform.position = new Vector2(0, PositionModifierV);
+				//Debug.Log("PARTE 1 ===============");
+				yield return null;
+				
+			}
+			while (PositionModifierV < .05f){
+				PositionModifierV += Time.deltaTime * .6f;
+				f.transform.position = new Vector2(0, PositionModifierV);
+				//Debug.Log("PARTE 2 ===============");
+
+				yield return null;
+			}
+			while (PositionModifierV < 10){
+				PositionModifierV += Time.deltaTime * 32f;
+				f.transform.position = new Vector2(0, PositionModifierV);
+				//Debug.Log("PARTE 3 ===============");
+
+				yield return null;
+			}
+			//Debug.Log(Time.time);
+		}
+
+		//DIFALOSSAUROOOO
+		PositionModifierV = -9;	
+
+		SoundController.instance.PlaySingle(dilofo.GetComponent<AudioSource>().clip);
+		while (PositionModifierV < .5f){
+			PositionModifierV += Time.deltaTime * 80f;
+			if(PositionModifierV > .5f)
+				PositionModifierV = .5f;
+			dilofo.transform.position = new Vector2(0, PositionModifierV);
+			//Debug.Log("PARTE 1 ===============");
 			yield return null;
 			
 		}
-		while (PositionModifierH < -6){
-			PositionModifierH += Time.deltaTime * 0.25f;
-			PositionModifierV += Time.deltaTime * 0.15f;
-			FaixaH1.transform.position = new Vector2(PositionModifierH , PositionModifierH * 0.4f);
-			FaixaH2.transform.position = new Vector2(-PositionModifierH , PositionModifierH * 0.4f);
-			FaixaV.transform.position = new Vector2(0, PositionModifierV);
+		while (PositionModifierV < .65f){
+			PositionModifierV += Time.deltaTime * .3f;
+			dilofo.transform.position = new Vector2(0, PositionModifierV);
+			//Debug.Log("PARTE 2 ===============");
+			
 			yield return null;
 		}
-		while (PositionModifierH < 16){
-			PositionModifierH += Time.deltaTime * 15;
-			PositionModifierV += Time.deltaTime * 10f;
-			FaixaH1.transform.position = new Vector2(PositionModifierH , PositionModifierH * 0.4f);
-			FaixaH2.transform.position = new Vector2(-PositionModifierH , PositionModifierH * 0.4f);
-			FaixaV.transform.position = new Vector2(0, PositionModifierV);
+		while (PositionModifierV < 12){
+			PositionModifierV += Time.deltaTime * 40f;
+			dilofo.transform.position = new Vector2(0, PositionModifierV);
+			//Debug.Log("PARTE 3 ===============");
+			
 			yield return null;
 		}
-		Destroy(IntroductionGroup);
+
+		IntroductionGroup.SetActive(false);
 		InitiateRound();
 		
+	}
+
+	public void Exit(){
+
+		Application.Quit();
 	}
 }

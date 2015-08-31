@@ -7,6 +7,8 @@ public class PlayerBody : MonoBehaviour {
 	public float DAMAGEDUR = .3f;
 	public int LIFESMAX = 3;
 
+	public AudioClip morrendo;
+
 	Player father;
 	GameController gameController;
 	LifeCounter lifeCounter;
@@ -33,9 +35,6 @@ public class PlayerBody : MonoBehaviour {
 	public void Initiate(){
 		lifes = LIFESMAX;
 		time = 0;
-
-		dino.SetBool("Atingido", false);
-		dino.SetBool("Morto", false);
 
 	}
 	
@@ -68,15 +67,16 @@ public class PlayerBody : MonoBehaviour {
 			if(lifes==0){
 				//Bloquear todo mundo
 				gameController.BlockEveryone();
-				//
+				//Atualizando animaçao
 				dino.SetBool("Morto", true);
+				//Tocar somzim
+				SoundController.instance.PlaySingle(morrendo);
 				//ZaWarudo
 				time = 0;
 				Time.timeScale = .2f;
 				father.Vencedor = false;
 			}else{
 				time = 0;
-				Debug.Log("Apanhou aqui");
 				dino.SetBool("Atingido", true);
 
 
