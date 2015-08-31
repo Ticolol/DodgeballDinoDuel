@@ -282,6 +282,10 @@ public class Player : MonoBehaviour {
 
 		//Aplicando velocidades
 		transform.Translate(velocity);
+        if(transform.position.x < -12)
+            transform.position = new Vector3(-12f, transform.position.y, transform.position.z);
+        if(transform.position.x > 12)
+            transform.position = new Vector3(12f, transform.position.y, transform.position.z);
 
 		//ATTACK
 		if(Input.GetKey(getAttack) && !attacking && !attackCoolDown && allowMove){//Pegando o input, começa o ataque

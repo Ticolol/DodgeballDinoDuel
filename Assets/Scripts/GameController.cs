@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour {
 		player1.Initiate();
 		player2.Initiate();
 		BlockEveryone();
+        lifeCounter1.Initiate();
+        lifeCounter2.Initiate();
 		StartCoroutine("AnimateEntrance");
 	}
 
@@ -60,8 +62,7 @@ public class GameController : MonoBehaviour {
 		player1.Initiate();
 		player2.Initiate();
 		meteorSpawnerScript.Initiate();
-		lifeCounter1.Initiate();
-		lifeCounter2.Initiate();
+
 	}
 
 	IEnumerator AnimateEntrance() {

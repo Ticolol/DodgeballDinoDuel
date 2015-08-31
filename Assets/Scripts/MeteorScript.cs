@@ -14,7 +14,11 @@ public class MeteorScript : MonoBehaviour {
 	public RuntimeAnimatorController tailCtrl;
 	public RuntimeAnimatorController slowTailCtrl;
 
+    public AudioClip explosao;
+
 	private int CollisionCount;
+
+
 	bool onFire = true;
 
 	GameObject cauda;
@@ -54,7 +58,7 @@ public class MeteorScript : MonoBehaviour {
 		//Checa colisao com o chao
 		if(obj.gameObject.tag == "Floor")
 		{
-			//Caso estiver com cauda, se nao foi rebatida, tira causa, senao coloca a cauda menor
+            //Caso estiver com cauda, se nao foi rebatida, tira causa, senao coloca a cauda menor
 			if(onFire){
 				if(!rebatido)
 					HideTail();
@@ -114,6 +118,8 @@ public class MeteorScript : MonoBehaviour {
 	}
 
 	public void Explode(){
+        //Explode meteoro
+        SoundController.instance.RandomizeSfx(explosao);
 		//Instancia meteoro explodindo, o mataa e se mata
 		SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
 		foreach(SpriteRenderer s in sprites){
