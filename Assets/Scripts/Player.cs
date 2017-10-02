@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 
 	public bool allowMove;
 
-	KeyCode getUp, getDown, getLeft, getRight, getAttack;
+	string getUp, getDown, getLeft, getRight, getAttack;
 
 	// Use this for initialization
 	void Start () {
@@ -74,20 +74,20 @@ public class Player : MonoBehaviour {
 		}else{
 			dino.runtimeAnimatorController = animtP2;
 		}
-        
+
         //Setar keycode pros comandos do jogador
 		if(player == PlayerN.Player2){
-			getUp = KeyCode.UpArrow;
-			getDown = KeyCode.DownArrow;
-			getLeft = KeyCode.LeftArrow;
-			getRight = KeyCode.RightArrow;
-			getAttack = KeyCode.L;
+			getUp = "Jump2";
+			getDown = "Crouch2";
+			getLeft = "Horizontal2";
+			getRight = "Horizontal2";
+			getAttack = "Attack2";
 		}else if(player == PlayerN.Player1){
-			getUp = KeyCode.W;
-			getDown = KeyCode.S;
-			getLeft = KeyCode.A;
-			getRight = KeyCode.D;
-			getAttack = KeyCode.Space;
+			getUp = "Jump1";
+			getDown = "Crouch1";
+			getLeft = "Horizontal1";
+			getRight = "Horizontal1";
+			getAttack = "Attack1";
 		}
 
 		//Initiate();
@@ -131,12 +131,12 @@ public class Player : MonoBehaviour {
 			transform.position = new Vector3(-5,-3.1f,0);
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
 		//Agachamento e fast fall
-		if(Input.GetKey(getDown) && !attacking && allowMove){
+		if(Input.GetAxis(getDown) < 0 && !attacking && allowMove){
 			if(onGround){
 				//Agachar
 				dino.SetBool("Agachado", true);
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour {
 		}
 
 		//Andar lateralmente
-		if(Input.GetKey(getRight) && !crouched && allowMove){
+		if(Input.GetAxis(getRight) > 0 && !crouched && allowMove){
 			//Tocar som
 			if(onGround){
 				if(!GetComponent<AudioSource>().isPlaying){
@@ -177,7 +177,7 @@ public class Player : MonoBehaviour {
 			velocity.x += WALKACCEL * Time.deltaTime;
 			if(velocity.x < 0)//Se velocidade eh oposta a aceleracao, aplicar drag para muda-la mais rapido
 				velocity.x *= DRAG;
-		}else if(Input.GetKey(getLeft) && !crouched && allowMove){
+		}else if(Input.GetAxis(getLeft) < 0 && !crouched && allowMove){
 			//Tocar som
 			if(onGround){
 				if(!GetComponent<AudioSource>().isPlaying){
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour {
 
 		//Aplicando gravidade
 		velocity.y += -GRAVITYACCEL * Time.deltaTime;
-		
+
 		if(Mathf.Abs(velocity.y) > GRAVITYMAX){// se vel > vel terminal, corrigi-la
 			velocity.y = Mathf.Sign(velocity.y) * GRAVITYMAX;
 		}
@@ -224,12 +224,12 @@ public class Player : MonoBehaviour {
 			dino.SetBool("Pulando", false);
 			onGround = true;
 			canJump = true;
-			jumpTimes = 0;			
+			jumpTimes = 0;
 		}else{//nao relou no chao
 			onGround = false;
 		}
 		//PULAR!!!
-		if(Input.GetKey(getUp) && !crouched && allowMove){
+		if(Input.GetAxis(getUp) > 0 && !crouched && allowMove){
 			dino.SetBool("Agachado", false);
 			if(onGround){//Se no chao, aplicar 1o pulo
 				SoundController.instance.PlaySingle(jumpOne);
@@ -288,7 +288,7 @@ public class Player : MonoBehaviour {
             transform.position = new Vector3(12f, transform.position.y, transform.position.z);
 
 		//ATTACK
-		if(Input.GetKey(getAttack) && !attacking && !attackCoolDown && allowMove){//Pegando o input, começa o ataque
+		if(Input.GetButton(getAttack) && !attacking && !attackCoolDown && allowMove){//Pegando o input, começa o ataque
 			attacking = true;
 			attackDur = 0;
 			//Acertar anim
@@ -330,7 +330,7 @@ public class Player : MonoBehaviour {
 //	void OnTriggerStay(Collider c){
 //		Debug.Log ("AAAAAAAAAAAAAAAAHHHHHHHHHHHHH!!!!!!!!!!!!");
 //
-//			
+//
 //
 //	}
 }
