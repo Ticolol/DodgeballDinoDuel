@@ -36,10 +36,21 @@ public class StatisticsController : MonoBehaviour {
 	int DestinationY;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		phase = 0;
 		resultPanel.transform.position = new Vector2(Screen.width/2f, -Screen.height * 0.5f);
 		restart = false;
+
+		//Setar sprites padrão da linguagem PT
+		Sprite[] sprites = new Sprite[2];
+		sprites[0] = firstSprite;
+		sprites[1] = secondSprite;
+		GetComponent<LanguageUpdater>().SetAssistSprites(sprites, LanguageController.Language.Portuguese);
+		//Atualizar lingua dos assets
+		sprites = GetComponent<LanguageUpdater>().GetAssistSprites(LanguageController.instance.language);
+		firstSprite = sprites[0];
+		secondSprite = sprites[1];
+
 
 		Player1 = GameObject.Find("Player 1").GetComponent<Player>();
 		Player2 = GameObject.Find("Player 2").GetComponent<Player>();
@@ -52,6 +63,8 @@ public class StatisticsController : MonoBehaviour {
 
 	public void DisplayStatistics (){
 		//Debug.Log(DurationTextDesc.transform.position);
+		
+
 		if (Player2.Vencedor == true){
 			transform.Find("ResultPanel").GetComponent<Image>().sprite = secondSprite;
 			btnRestart.GetComponent<RectTransform>().anchoredPosition = new Vector3(-24,-143,0);

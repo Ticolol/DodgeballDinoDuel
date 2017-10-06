@@ -40,7 +40,7 @@ public class TailWhip : MonoBehaviour {
 				c.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(c.transform.position - father.transform.position)
 				                                               * FORCE , ForceMode.Impulse);//Aplica Impulso
 				//Mostrar cauda
-				c.gameObject.GetComponent<MeteorScript>().ShowTail();
+				c.gameObject.GetComponent<MeteorScript>().ShowTail(Mathf.Sign(father.transform.Find("RotDino").localScale.x));
 				//Restaurar meteoro
 				c.GetComponent<MeteorScript>().Restore();
 				father.knockedMeteors++;

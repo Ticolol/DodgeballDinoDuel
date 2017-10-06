@@ -34,7 +34,6 @@ public class SoundController : MonoBehaviour {
 			updateMute = false;
 			ApplyMuteValue();
 		}
-
 	}
 
 
@@ -44,7 +43,7 @@ public class SoundController : MonoBehaviour {
 		ApplyMuteValue();
 	}
 	void ApplyMuteValue(){
-		foreach( AudioSource a in UnityEngine.Object.FindObjectsOfType<AudioSource>())
+		foreach( AudioSource a in Object.FindObjectsOfType<AudioSource>())
 			a.mute = mute;
 	}
 

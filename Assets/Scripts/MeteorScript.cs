@@ -8,6 +8,7 @@ public class MeteorScript : MonoBehaviour {
 	GameObject meteorSprite;
 
 	public GameObject explodingMeteor;
+	public GameObject attackedEffect;
 
 	MeteorSpawnerScript MeteorSpawner;
 
@@ -64,7 +65,6 @@ public class MeteorScript : MonoBehaviour {
 				if(!rebatido)
 					HideTail();
 				else if(rebatido){
-					Debug.Log("vem berg");
 					cauda.GetComponentInChildren<Animator>().runtimeAnimatorController = slowTailCtrl;
 				}
 			}
@@ -106,11 +106,19 @@ public class MeteorScript : MonoBehaviour {
 		else
 			cauda.SetActive(false);
 	}
-	public void ShowTail(){
+	public void ShowTail(float n){
 		//Faz cauda reaparecer apos rabada
 		onFire = true;
 		cauda.SetActive(true);
 		rebatido = true;
+
+		RotateTail();
+
+		GameObject g = Instantiate(attackedEffect, transform.position, 
+			Quaternion.identity) as GameObject;
+		if(n<0)
+			g.transform.localScale = new Vector3(-g.transform.localScale.x,g.transform.localScale.y,g.transform.localScale.z);
+		Destroy (g,1f);
 	}
 	public void RotateTail(){
 		//Rotaciona cauda

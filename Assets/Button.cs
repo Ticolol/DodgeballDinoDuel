@@ -70,7 +70,6 @@ public class Button : MonoBehaviour {
 	}
 
 	void OnMouseUpAsButton(){
-		Debug.Log("UE " + gameObject.name + " => " + enabled);
 		if(enabled){
 			pressed = true;
 			if(scriptName.Length != 0){
@@ -113,5 +112,29 @@ public class Button : MonoBehaviour {
 		}
     }
     
-    
+    public void UpdateSprites(Sprite normal, Sprite over, Sprite pressed){
+    	//Update normal
+    	if(normal != null)
+			normalSprite = normal;
+
+		//Update over
+		if(over != null)
+			overSprite = over;
+		else if(normal != null)
+			overSprite = normal;
+
+		//Update pressed
+		if(pressed != null)
+			pressedSprite = pressed;
+		else if(normal != null)
+			pressedSprite = normal;
+    }
+
+    public Sprite[] GetSprites(){
+    	Sprite[] sprites = new Sprite[3];
+    	sprites[0] = normalSprite;
+    	sprites[1] = overSprite;
+    	sprites[2] = pressedSprite;
+    	return sprites;
+    }   
 }

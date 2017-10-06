@@ -35,6 +35,9 @@ public class GameController : MonoBehaviour {
 			StartRound();
 		}
         
+        if(Input.GetKey(KeyCode.R)){
+        	Application.LoadLevel(0);
+        }
     }
 
 	public void BlockEveryone(){
@@ -89,14 +92,12 @@ public class GameController : MonoBehaviour {
 				PositionModifierV += Time.deltaTime * .6f;
 				f.transform.position = new Vector2(0, PositionModifierV);
 				//Debug.Log("PARTE 2 ===============");
-
 				yield return null;
 			}
 			while (PositionModifierV < 10){
 				PositionModifierV += Time.deltaTime * 32f;
 				f.transform.position = new Vector2(0, PositionModifierV);
 				//Debug.Log("PARTE 3 ===============");
-
 				yield return null;
 			}
 			//Debug.Log(Time.time);
@@ -119,14 +120,12 @@ public class GameController : MonoBehaviour {
 			PositionModifierV += Time.deltaTime * .3f;
 			dilofo.transform.position = new Vector2(0, PositionModifierV);
 			//Debug.Log("PARTE 2 ===============");
-			
 			yield return null;
 		}
 		while (PositionModifierV < 12){
 			PositionModifierV += Time.deltaTime * 40f;
 			dilofo.transform.position = new Vector2(0, PositionModifierV);
-			//Debug.Log("PARTE 3 ===============");
-			
+			//Debug.Log("PARTE 3 ===============");s
 			yield return null;
 		}
 
@@ -136,7 +135,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void Exit(){
-
-		Application.Quit();
+		//Application.Quit();
+		Application.LoadLevel("Title");
 	}
 }
