@@ -66,7 +66,10 @@ public class Player : MonoBehaviour {
 		dino = transform.Find("RotDino/Dino").gameObject.GetComponent<Animator>();
 
 		tailWhipPos = new Vector3(tailWhipHitBox.transform.localPosition.x, tailWhipHitBox.transform.localPosition.y, tailWhipHitBox.transform.localPosition.z);
-		originalScale = body.transform.localScale;
+		originalScale = new Vector3(body.transform.localScale.x * transform.localScale.x,
+									body.transform.localScale.y * transform.localScale.y,
+									body.transform.localScale.z * transform.localScale.z);
+		print(originalScale);
 		scenario = LayerMask.GetMask("Ground");
 
 		if(player == PlayerN.Player1){
@@ -142,18 +145,18 @@ public class Player : MonoBehaviour {
 				dino.SetBool("Agachado", true);
 				body.transform.localScale = new Vector3(originalScale.x * CROUCHWIDTH, originalScale.y * CROUCHHEIGHT, originalScale.z);
 				if(!crouched){ //Se eh o 1o frame do agachamento, andar metade do tamanho para baixo pra encostar no chao
-					transform.position = transform.position - Vector3.up * originalScale.y * (1 - CROUCHHEIGHT)/2;
+					transform.position = transform.position - Vector3.up * ((originalScale.y * (1 - CROUCHHEIGHT)/2) - SKIN - .4f);
 					dino.transform.localPosition = dino.transform.localPosition + Vector3.up * originalScale.y * (1 - CROUCHHEIGHT)/2;
 				}
 				crouched = true;
 			}else {
 				//Fastfall
-				velocity.y = -GRAVITYMAX;
+				velocity.y = -GRAVITYMAX * Time.deltaTime;
 			}
 		}else if (crouched && !attacking){//Voltar ao normal
 			dino.SetBool("Agachado", false);
+			transform.position = transform.position + Vector3.up * ((originalScale.y * (1 - CROUCHHEIGHT)/2) + SKIN + .4f);
 			body.transform.localScale = originalScale;
-			transform.position = transform.position + Vector3.up * originalScale.y * (1 - CROUCHHEIGHT)/2;
 			dino.transform.localPosition = dino.transform.localPosition - Vector3.up * originalScale.y * (1 - CROUCHHEIGHT)/2;
 			crouched = false;
 		}
@@ -201,25 +204,28 @@ public class Player : MonoBehaviour {
 			if(Mathf.Abs(velocity.x) < MINIMUMSPEEDX){//Se velocidade menor que o minimo, zera-la
 				velocity.x = 0;
 			}else{//senao, aplicar arrasto
-				velocity.x *= DRAG;
+				velocity.x *= DRAG * Time.deltaTime;
 			}
 		}
 		AnimSide();
 		//Corrigir possiveis ruins
-		if(Mathf.Abs (velocity.x) > WALKSPEEDMAX){//Se andar rapido demais, abaixe pro limite de vel
-			velocity.x = Mathf.Sign (velocity.x) * WALKSPEEDMAX;
+		if(Mathf.Abs (velocity.x) > WALKSPEEDMAX * Time.deltaTime){//Se andar rapido demais, abaixe pro limite de vel
+			velocity.x = Mathf.Sign (velocity.x) * WALKSPEEDMAX * Time.deltaTime;
 		}
 
 		//Aplicando gravidade
 		velocity.y += -GRAVITYACCEL * Time.deltaTime;
 
-		if(Mathf.Abs(velocity.y) > GRAVITYMAX){// se vel > vel terminal, corrigi-la
-			velocity.y = Mathf.Sign(velocity.y) * GRAVITYMAX;
+		if(Mathf.Abs(velocity.y) > GRAVITYMAX * Time.deltaTime){// se vel > vel terminal, corrigi-la
+			velocity.y = Mathf.Sign(velocity.y) * GRAVITYMAX * Time.deltaTime;
 		}
 		//Checando colisao com o chao
-		Ray r1 = new Ray(transform.position - Vector3.up * body.GetComponent<Collider>().bounds.size.y/2,
-		                 -Vector3.up);//Raycasting do pe do dinossauro pra baixo
+		Ray r1 = new Ray(transform.position
+		 					- Vector3.up * (body.GetComponent<Collider>().bounds.size.y/2 + .2f),
+		                 	- Vector3.up);//Raycasting do pe do dinossauro pra baixo
 		RaycastHit h1 = new RaycastHit();
+		Debug.DrawLine(r1.origin, r1.origin + r1.direction * Mathf.Abs(velocity.y));
+		print(body.GetComponent<Collider>().bounds.size.y);
 		if(Physics.Raycast(r1, out h1, Mathf.Abs(velocity.y), scenario)){//Se relou no chao, esta tocando
 			dino.SetBool("Pulando", false);
 			onGround = true;
@@ -251,12 +257,12 @@ public class Player : MonoBehaviour {
 				jumpDur = 0;
 				jumpCtrlAllowed = true;
 			}else if(jumpCtrlAllowed){//se puder controlar, controlar a extensao do pulo
-				jumpDur += Time.deltaTime;
 				if(jumpDur < JUMPDURMAX){
 					velocity.y += JUMPACCEL * Time.deltaTime;
 				}else{
 					jumpCtrlAllowed = false;
 				}
+				jumpDur += Time.deltaTime;
 			}
 		}else{//Nao apertou o botao, entao pode pular novamente
 			jumpCtrlAllowed = false;
@@ -267,8 +273,9 @@ public class Player : MonoBehaviour {
 		//Debug.Log(velocity.y);
 
 		//Raycasting em Y
-		r1 = new Ray(transform.position - Vector3.up * body.GetComponent<Collider>().bounds.size.y/2,
-		                 -Vector3.up);//Raycasting do pe do dinossauro pra baixo
+		r1 = new Ray(transform.position
+		 					- Vector3.up * (body.GetComponent<Collider>().bounds.size.y/2 + .2f),
+		                 	-Vector3.up);//Raycasting do pe do dinossauro pra baixo
 		h1 = new RaycastHit();
 		if(Physics.Raycast(r1, out h1, Mathf.Abs(velocity.y), scenario)){//checa se raycast bateu no chao
 			float dist = Vector3.Distance(r1.origin, h1.point);//pega distancia pro chao
